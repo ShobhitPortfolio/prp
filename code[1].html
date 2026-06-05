@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background-color: #fcf9f8;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .curved-marquee {
+            clip-path: ellipse(150% 100% at 50% 100%);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .property-card-hover img {
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .property-card-hover:hover img {
+            transform: scale(1.05);
+        }
+        .nav-island-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .menu-item-blur {
+            filter: blur(8px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error-container": "#ffdad6",
+                      "inverse-on-surface": "#f3f0ef",
+                      "on-tertiary-container": "#848484",
+                      "on-secondary": "#ffffff",
+                      "inverse-surface": "#313030",
+                      "on-secondary-fixed-variant": "#454747",
+                      "inverse-primary": "#c6c6c6",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-highest": "#e5e2e1",
+                      "tertiary-container": "#1b1b1b",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed": "#e2e2e2",
+                      "surface-container-low": "#f6f3f2",
+                      "on-primary-fixed": "#1b1b1b",
+                      "on-secondary-container": "#616363",
+                      "outline": "#7e7576",
+                      "outline-variant": "#cfc4c5",
+                      "secondary": "#5d5f5f",
+                      "on-secondary-fixed": "#1a1c1c",
+                      "secondary-fixed-dim": "#c6c6c7",
+                      "surface-tint": "#5e5e5e",
+                      "secondary-container": "#dfe0e0",
+                      "background": "#fcf9f8",
+                      "on-error": "#ffffff",
+                      "on-surface-variant": "#4c4546",
+                      "secondary-fixed": "#e2e2e2",
+                      "surface-variant": "#e5e2e1",
+                      "surface-container-high": "#eae7e7",
+                      "on-primary-fixed-variant": "#474747",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "surface-dim": "#dcd9d9",
+                      "primary-container": "#1b1b1b",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "on-primary-container": "#848484",
+                      "primary": "#000000",
+                      "error": "#ba1a1a",
+                      "surface-bright": "#fcf9f8",
+                      "on-surface": "#1c1b1b",
+                      "tertiary": "#000000",
+                      "primary-fixed-dim": "#c6c6c6",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "surface-container": "#f0eded",
+                      "on-error-container": "#93000a",
+                      "surface": "#fcf9f8",
+                      "surface-container-lowest": "#ffffff",
+                      "on-background": "#1c1b1b",
+                      "primary-fixed": "#e2e2e2"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "island-padding": "12px 32px",
+                      "gutter": "32px",
+                      "stack-gap": "16px",
+                      "margin-mobile": "24px",
+                      "margin-desktop": "80px"
+              },
+              "fontFamily": {
+                      "body-md": ["Hanken Grotesk"],
+                      "nav-item": ["Hanken Grotesk"],
+                      "headline-lg": ["Hanken Grotesk"],
+                      "headline-lg-mobile": ["Hanken Grotesk"],
+                      "label-caps": ["Hanken Grotesk"],
+                      "headline-xl": ["Hanken Grotesk"],
+                      "body-lg": ["Hanken Grotesk"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "nav-item": ["15px", {"lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "headline-xl": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar (Dynamic Island) -->
+<header class="fixed top-6 left-1/2 -translate-x-1/2 z-[70] flex flex-nowrap items-center justify-between py-3 bg-black/90 nav-island-blur rounded-full shadow-[0px_20px_40px_rgba(0,0,0,0.15)] w-fit transition-all duration-500 cursor-pointer active:scale-95 group border border-white/10" id="dynamic-island" style="min-width: 1000px; padding-left: 48px; padding-right: 48px;">
+<div class="flex flex-nowrap items-center gap-16 shrink-0">
+<span class="font-headline-lg text-[24px] tracking-tighter text-on-primary select-none leading-none pt-1 shrink-0">ESTATE</span>
+<nav class="hidden md:flex flex-nowrap items-center gap-8 shrink-0">
+<a class="font-nav-item text-nav-item text-on-primary border-b border-on-primary transition-colors py-1 whitespace-nowrap" href="#" id="collections-trigger">Collections</a>
+<a class="font-nav-item text-nav-item text-on-tertiary-container hover:text-on-primary transition-colors py-1 whitespace-nowrap" href="#">Advisory</a>
+<a class="font-nav-item text-nav-item text-on-tertiary-container hover:text-on-primary transition-colors py-1 whitespace-nowrap" href="#">Concierge</a>
+</nav>
+</div>
+<div class="flex flex-nowrap items-center ml-10 shrink-0">
+<button class="bg-white text-black px-6 py-2 rounded-full font-label-caps text-label-caps hover:scale-105 transition-transform duration-500 ease-out active:scale-95 whitespace-nowrap shrink-0">
+            Private Access
+        </button>
+<button class="flex md:hidden text-on-primary ml-4 shrink-0" id="menu-trigger">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<!-- Flowing Property Menu Overlay -->
+<div class="fixed inset-0 z-[100] bg-black hidden flex-col items-center justify-center p-margin-desktop opacity-0 pointer-events-none" id="property-menu-overlay">
+<button class="absolute top-10 right-10 text-white hover:rotate-90 transition-transform duration-500 pointer-events-auto" id="close-property-menu">
+<span class="material-symbols-outlined !text-5xl">close</span>
+</button>
+<div class="text-center mb-16 opacity-0 menu-item" id="menu-header">
+<span class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-[0.4em]">Categorized Archives</span>
+</div>
+<nav class="flex flex-col items-center gap-10">
+<div class="group overflow-hidden">
+<a class="property-nav-item block font-headline-xl text-headline-xl text-white opacity-0 transform translate-y-12 menu-item-blur transition-all duration-700 hover:tracking-widest" href="#">Modernist</a>
+</div>
+<div class="group overflow-hidden">
+<a class="property-nav-item block font-headline-xl text-headline-xl text-white opacity-0 transform translate-y-12 menu-item-blur transition-all duration-700 hover:tracking-widest" href="#">Brutalist</a>
+</div>
+<div class="group overflow-hidden">
+<a class="property-nav-item block font-headline-xl text-headline-xl text-white opacity-0 transform translate-y-12 menu-item-blur transition-all duration-700 hover:tracking-widest" href="#">Coastal</a>
+</div>
+<div class="group overflow-hidden">
+<a class="property-nav-item block font-headline-xl text-headline-xl text-white opacity-0 transform translate-y-12 menu-item-blur transition-all duration-700 hover:tracking-widest" href="#">Forest</a>
+</div>
+</nav>
+<div class="mt-24 opacity-0 menu-item" id="menu-footer">
+<p class="font-body-md text-on-tertiary-container max-w-sm text-center">Curated by Estate Archive. Hand-picked architectural gems from around the globe.</p>
+</div>
+</div>
+<main>
+<!-- Hero Section -->
+<section class="relative h-screen w-full flex items-center justify-center overflow-hidden pt-20">
+<div class="absolute inset-0 z-0 scale-110">
+<img class="w-full h-full object-cover grayscale opacity-90 hero-image" data-alt="A dramatic high-contrast black and white architectural photograph of a brutalist concrete villa set against a stark, overcast sky." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHeN1Ve2yAT-EbaPM31_Na6-2uANdmmGZloSHXwUdx6jg5o2P9DvGNMcMcHp_t_q6jpBV7OhtysPh0-ahAIrWuTOVzJ0wa2eAosgHydoZiv49HPmSp5NIsK2lTaYqqtkjy0cF19P3adCJuPHeLGeDeIKENZwES2SIU215_e8vQWYdz8MS6D9zXdJB_ogZcFtxZEcNbUy3t_vu6MAP0XwrUvTl9UkspYQXL-jX81m5d52MHS6NyIoTDwu2UmWNZ8lGHrk3U8HDfGLOu"/>
+</div>
+<div class="relative z-10 text-center px-6">
+<h2 class="hero-text-1 font-headline-xl text-headline-xl text-white mb-4 overflow-hidden">
+<span class="inline-block transform translate-y-full">ARCHIVE OF</span>
+</h2>
+<h2 class="hero-text-2 font-headline-xl text-headline-xl text-white mb-8 overflow-hidden">
+<span class="inline-block transform translate-y-full">TIMELESS SPACES</span>
+</h2>
+<div class="hero-cta opacity-0 transform translate-y-10">
+<button class="bg-white text-black px-12 py-5 rounded-full font-label-caps text-label-caps text-[14px] hover:invert transition-all duration-700 shadow-2xl">
+                    EXPLORE THE COLLECTION
+                </button>
+</div>
+</div>
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+<span class="material-symbols-outlined text-white opacity-50">keyboard_double_arrow_down</span>
+</div>
+</section>
+<!-- Prestigious Estates Curved Marquee -->
+<section class="py-40 bg-white overflow-hidden relative">
+<div class="max-w-[1440px] mx-auto px-margin-desktop mb-20">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-[0.2em]">Curated Selection</span>
+<h3 class="font-headline-lg text-headline-lg text-primary mt-2">PRESTIGIOUS ESTATES</h3>
+</div>
+<div class="curved-marquee relative flex gap-gutter px-gutter py-20 bg-surface-container-low">
+<div class="marquee-inner flex gap-gutter whitespace-nowrap w-max">
+<!-- Marquee Item 1 -->
+<div class="w-[400px] flex-shrink-0 group">
+<div class="aspect-[4/5] rounded-[25px] overflow-hidden mb-6 shadow-xl">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="Minimalist interior view of a luxury penthouse in Manhattan." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAELJEYC0xsu53fKggMKojdNuvzJxjG8GonDgD6TPtzE5NtrfTzTZ5AQaQxAHroCKyO4eaIbY3vu7XRyi2oS43qvD9FCXzvF2Vbj3hpo_gfcgEvnD1a-kc3bQGY7pKGLHu36GgxCuJ47QncuQdUoUoSN7m_avF9WMYcyxFGuu-SaT-HFQQ6MHqVC_tqDZL8bs7T5so3Aj2pb1x0EkVCQQCImRLCZfoIXvWx86eEo3rjvtGzklTET5R2dBdDwgoD5YK6vwxEEXABk8LM"/>
+</div>
+<div class="px-2">
+<h4 class="font-headline-lg text-[24px] text-primary">Glass Pavilion</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant">BEVERLY HILLS, CA</p>
+</div>
+</div>
+<!-- Marquee Item 2 -->
+<div class="w-[400px] flex-shrink-0 group">
+<div class="aspect-[4/5] rounded-[25px] overflow-hidden mb-6 shadow-xl">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="Exterior view of a cantilevered architectural masterpiece." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTKqHNQv9yWzsDFZ2MPnarNIkDPDkH-sE6BTM3JmxCzPm5v-vSENXklGwDzddEzCOFXZY_cd7W7rrz4Owylhtwq_rKf6osyiuOJhcHmhyyovN8NMdCLvuGGl4MBJ5RbtgXAfEvTmzIA4l2emL2vkOlUD6K5yROeSp2yW79dzI3WqATMRUYBibfYxgnt67rqhAeRH1jdlsnI8y-B6XdgOvxTkkeiUU9-ZLh_V07bHeWVSK4UEmVMhO_RQqCNPV8i2Fs9opp1f7_wH5H"/>
+</div>
+<div class="px-2">
+<h4 class="font-headline-lg text-[24px] text-primary">Obsidian House</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant">KYOTO, JAPAN</p>
+</div>
+</div>
+<!-- Marquee Item 3 -->
+<div class="w-[400px] flex-shrink-0 group">
+<div class="aspect-[4/5] rounded-[25px] overflow-hidden mb-6 shadow-xl">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="A sprawling brutalist estate set in a dense pine forest." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGArNzlJvKjCPVwN2qd3biS2B6uTu07cfl_1VZvpPOcRQvbh2kia6b-ABr5HzYP8JLpse87DxzKRQd5qJEc6k72y7nxbbKBEbKwopOZktZGX7VDas0Ao_K_NKuoV8DNkcRUIAMkPEFnA3EKhM__JtOoglQUOWybMphWzeBgIkBNUGNZ6kI1ZlY6rHPDJMYCdYcQVH5_GEihOGJJCn0D8dns2oI7eoFJNDn6Lbk5CoOzV97BXhObXOrqMrBhgMv6i63caWN6-D2pNI6"/>
+</div>
+<div class="px-2">
+<h4 class="font-headline-lg text-[24px] text-primary">The Monolith</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant">OSLO, NORWAY</p>
+</div>
+</div>
+<!-- Marquee Item 4 -->
+<div class="w-[400px] flex-shrink-0 group">
+<div class="aspect-[4/5] rounded-[25px] overflow-hidden mb-6 shadow-xl">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="Minimalist interior view of a luxury penthouse in Manhattan." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAELJEYC0xsu53fKggMKojdNuvzJxjG8GonDgD6TPtzE5NtrfTzTZ5AQaQxAHroCKyO4eaIbY3vu7XRyi2oS43qvD9FCXzvF2Vbj3hpo_gfcgEvnD1a-kc3bQGY7pKGLHu36GgxCuJ47QncuQdUoUoSN7m_avF9WMYcyxFGuu-SaT-HFQQ6MHqVC_tqDZL8bs7T5so3Aj2pb1x0EkVCQQCImRLCZfoIXvWx86eEo3rjvtGzklTET5R2dBdDwgoD5YK6vwxEEXABk8LM"/>
+</div>
+<div class="px-2">
+<h4 class="font-headline-lg text-[24px] text-primary">Glass Pavilion</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant">BEVERLY HILLS, CA</p>
+</div>
+</div>
+<!-- Marquee Item 5 -->
+<div class="w-[400px] flex-shrink-0 group">
+<div class="aspect-[4/5] rounded-[25px] overflow-hidden mb-6 shadow-xl">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="Exterior view of a cantilevered architectural masterpiece." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTKqHNQv9yWzsDFZ2MPnarNIkDPDkH-sE6BTM3JmxCzPm5v-vSENXklGwDzddEzCOFXZY_cd7W7rrz4Owylhtwq_rKf6osyiuOJhcHmhyyovN8NMdCLvuGGl4MBJ5RbtgXAfEvTmzIA4l2emL2vkOlUD6K5yROeSp2yW79dzI3WqATMRUYBibfYxgnt67rqhAeRH1jdlsnI8y-B6XdgOvxTkkeiUU9-ZLh_V07bHeWVSK4UEmVMhO_RQqCNPV8i2Fs9opp1f7_wH5H"/>
+</div>
+<div class="px-2">
+<h4 class="font-headline-lg text-[24px] text-primary">Obsidian House</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant">KYOTO, JAPAN</p>
+</div>
+</div>
+<!-- Marquee Item 6 -->
+<div class="w-[400px] flex-shrink-0 group">
+<div class="aspect-[4/5] rounded-[25px] overflow-hidden mb-6 shadow-xl">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="A sprawling brutalist estate set in a dense pine forest." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGArNzlJvKjCPVwN2qd3biS2B6uTu07cfl_1VZvpPOcRQvbh2kia6b-ABr5HzYP8JLpse87DxzKRQd5qJEc6k72y7nxbbKBEbKwopOZktZGX7VDas0Ao_K_NKuoV8DNkcRUIAMkPEFnA3EKhM__JtOoglQUOWybMphWzeBgIkBNUGNZ6kI1ZlY6rHPDJMYCdYcQVH5_GEihOGJJCn0D8dns2oI7eoFJNDn6Lbk5CoOzV97BXhObXOrqMrBhgMv6i63caWN6-D2pNI6"/>
+</div>
+<div class="px-2">
+<h4 class="font-headline-lg text-[24px] text-primary">The Monolith</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant">OSLO, NORWAY</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Property Showcase Grid -->
+<section class="py-40 px-margin-desktop bg-background max-w-[1440px] mx-auto">
+<div class="flex justify-between items-end mb-24">
+<div class="max-w-2xl">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-[0.2em]">Exclusivity</span>
+<h3 class="font-headline-lg text-headline-lg text-primary mt-4">PRIVATE LISTINGS</h3>
+</div>
+<button class="border-2 border-black px-8 py-3 rounded-full font-label-caps text-label-caps hover:bg-black hover:text-white transition-all duration-500">
+                VIEW ALL ARCHIVES
+            </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+<!-- Listing 1 -->
+<div class="property-card group cursor-pointer">
+<div class="relative aspect-[16/10] overflow-hidden rounded-[25px] mb-8 shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" data-alt="An ultra-modern desert home." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6o2-9QR_j5wRZAOaEC0XiRxryT8gv8BPeuRjleSXTLAwgOrfQP1ZDjWTG2bmeTH-S7cr2C7qx9zn_IIGLEb8QdT2v7RY6ULI2E1PrFJv7AL1-15EVNG1B9OFlko69blepuSQjLzKHrCkZF0LCPltWQs3eU0WIMfgvFI72bj-15WHmZ_dnz8F6Tp7e6VY2FxqSeM9nt7st1xlLAUw3PKRKGQoLMbVP9ztjlR_-2e-ock8eDjnMVgrx_JkN5K55JHG0C9gTac3z1eEO"/>
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-black text-white px-4 py-1 rounded-full font-label-caps text-[10px]">FOR SALE</span>
+<span class="bg-white/80 backdrop-blur-sm text-black px-4 py-1 rounded-full font-label-caps text-[10px]">PENTHOUSE</span>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-lg text-[32px] text-primary mb-1">Desert Sanctuary</h4>
+<p class="font-body-md text-secondary">Joshua Tree, California</p>
+</div>
+<div class="text-right">
+<p class="font-headline-lg text-[28px] text-primary">$12,400,000</p>
+<p class="font-label-caps text-label-caps text-outline">EST. 2023</p>
+</div>
+</div>
+</div>
+<!-- Listing 2 -->
+<div class="property-card group cursor-pointer pt-20">
+<div class="relative aspect-[16/10] overflow-hidden rounded-[25px] mb-8 shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" data-alt="High-contrast black and white shot of a modern kitchen." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZfb09VmZ-j3L6rRqE9YU5v3opuzC-cFSQArI0x7Txk2t8Be4Rjd3vqPsvJTC1bFtdXNiN_peh9yrCys4VBPsnyb9V79GJJeHtkWtUzusisprnYBMWuEqZ82X1nv5nKYhS67fIRnN54mkj9BHHy4yFiub_0dxR8NEcoBckyhjylOzcnnkvOHshnTcxx8YJhEJmnBlIMW0912hrrd0V6rt5hV3RSUqllxKoRUrEp9PoyHwaqc4CgErTbONc_e4x-bcL0GPPwWqTVBIX"/>
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-black text-white px-4 py-1 rounded-full font-label-caps text-[10px]">PRIVATE</span>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-lg text-[32px] text-primary mb-1">Basalt Retreat</h4>
+<p class="font-body-md text-secondary">Reykjavik, Iceland</p>
+</div>
+<div class="text-right">
+<p class="font-headline-lg text-[28px] text-primary">$8,900,000</p>
+<p class="font-label-caps text-label-caps text-outline">EST. 2022</p>
+</div>
+</div>
+</div>
+<!-- Listing 3 -->
+<div class="property-card group cursor-pointer">
+<div class="relative aspect-[16/10] overflow-hidden rounded-[25px] mb-8 shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" data-alt="Minimalist white villa overlooking the sea." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7pVuKGhozoFpcqUCb0Xo0mg3gWFhZSFjpxAjejMsh3uJSbujXJ98OBs2eUM1nBty2hCIYIy7MYV0ivMlqRsA5lY1ovKwhJykDkmv5vmrjDvDvCaXvajfvXx4olCf0fUTmmT09pdRW78DzQPaS2v7XVSrMEKH_y0GM2pk-AfBURwtTOpMFNneC0_DOOrAa8e8fA5VGocbjHTzL5gSYqrndzw-kZ1yntlzhdNpsBo40G8TRLTQ4YFX7FSi3btR3FjB8GU5EC__ltUAh"/>
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-black text-white px-4 py-1 rounded-full font-label-caps text-[10px]">NEW LISTING</span>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-lg text-[32px] text-primary mb-1">Opal Villa</h4>
+<p class="font-body-md text-secondary">Mykonos, Greece</p>
+</div>
+<div class="text-right">
+<p class="font-headline-lg text-[28px] text-primary">$15,200,000</p>
+<p class="font-label-caps text-label-caps text-outline">EST. 2024</p>
+</div>
+</div>
+</div>
+<!-- Listing 4 -->
+<div class="property-card group cursor-pointer pt-20">
+<div class="relative aspect-[16/10] overflow-hidden rounded-[25px] mb-8 shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" data-alt="Dark modern architectural home at night." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqKQ4-wdZaxDgsBHilZiTrpH0DsUPcb4UYOror2vDVLDsy7KRQLydm1nW0krrhoatUKwr-64KKNDa9TEzRqXVo4I4duJnHQgxE30lzl_RSJO5DKAVGeuV4ekN8o3sNIzimu1UqaInPAt7eQ8tMomUMlzmi_cpolE7jHlhcFGaI1KR6xq0uLqUV-62GV-nV3uIgeoT6uKXi2JtryLm7HJVs8Y1ijbABgJvw8xsfKrOIhA7LZ0bdbbRkfemTmPDVU66-wtwSFwuyM1iS"/>
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-black text-white px-4 py-1 rounded-full font-label-caps text-[10px]">EXCLUSIVE</span>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-lg text-[32px] text-primary mb-1">The Shadow Box</h4>
+<p class="font-body-md text-secondary">Tokyo, Japan</p>
+</div>
+<div class="text-right">
+<p class="font-headline-lg text-[28px] text-primary">$22,500,000</p>
+<p class="font-label-caps text-label-caps text-outline">EST. 2021</p>
+</div>
+</div>
+</div>
+<!-- Listing 5 -->
+<div class="property-card group cursor-pointer">
+<div class="relative aspect-[16/10] overflow-hidden rounded-[25px] mb-8 shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" data-alt="Luxury cliffside property with ocean views." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs0CrgV05gV6OL2PZZw5ZYO1WwmVm_legtlFo3GXm-7SHkbSL1unm7COl4_FH1VKracIbA-79FOxSsRGFgAornuSOmoMVVvwiNkXSJ0SUD0YD51gYrTc9KKQIN0shckjBpDrVAe0Z0nFgoZ3EoJIyJ4ShdMaBl4N_K-VHsK3loBQ3lwKnQzTVmcL-jqifd-cnoc2PBny5e0Qpdayzn7L44yE0InmSLFrOxxGr60NsK5krJRT3IHdS37dVKhLuAD5jhu7YUFkMnUXpy"/>
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-black text-white px-4 py-1 rounded-full font-label-caps text-[10px]">PRIVATE</span>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-lg text-[32px] text-primary mb-1">Azure Cliff</h4>
+<p class="font-body-md text-secondary">Amalfi Coast, Italy</p>
+</div>
+<div class="text-right">
+<p class="font-headline-lg text-[28px] text-primary">$18,750,000</p>
+<p class="font-label-caps text-label-caps text-outline">EST. 2019</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-40 px-margin-desktop bg-white max-w-[1440px] mx-auto border-t border-outline-variant/30">
+<div class="max-w-2xl mx-auto text-center mb-16">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-[0.2em]">Inquiries</span>
+<h3 class="font-headline-lg text-headline-lg text-primary mt-4">REQUEST ACCESS</h3>
+</div>
+<form class="max-w-xl mx-auto flex flex-col gap-10">
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-primary">NAME</label>
+<input class="border-b border-outline-variant/50 bg-transparent py-2 focus:outline-none focus:border-primary transition-colors font-body-md" placeholder="Enter your full name" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-primary">EMAIL</label>
+<input class="border-b border-outline-variant/50 bg-transparent py-2 focus:outline-none focus:border-primary transition-colors font-body-md" placeholder="Enter your email address" type="email"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-primary">MESSAGE</label>
+<textarea class="border-b border-outline-variant/50 bg-transparent py-2 focus:outline-none focus:border-primary transition-colors font-body-md resize-none h-24" placeholder="How can we assist you?"></textarea>
+</div>
+<button class="mt-8 bg-black text-white px-12 py-4 rounded-full font-label-caps text-label-caps hover:bg-white hover:text-black border-2 border-black transition-all duration-500 w-fit mx-auto" type="button">
+                SUBMIT INQUIRY
+            </button>
+</form>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-background border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-gutter w-full max-w-[1440px] mx-auto">
+<span class="font-headline-lg text-headline-lg text-primary">ESTATE</span>
+<div class="flex gap-10 my-8 md:my-0">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity hover:opacity-70" href="#">Terms</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity hover:opacity-70" href="#">Privacy</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity hover:opacity-70" href="#">Careers</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-opacity hover:opacity-70" href="#">Press</a>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">© 2024 ESTATE ARCHIVE. ALL RIGHTS RESERVED.</p>
+</div>
+</footer>
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Header Scroll Interaction
+    const header = document.getElementById('dynamic-island');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            gsap.to(header, { scale: 0.9, opacity: 0.95, y: -5, duration: 0.4, ease: "power2.out" });
+        } else {
+            gsap.to(header, { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "power2.out" });
+        }
+    });
+
+    // Hero Reveal
+    const heroTl = gsap.timeline();
+    heroTl.to('.hero-text-1 span', { y: 0, duration: 1.2, ease: 'power4.out', delay: 0.5 })
+          .to('.hero-text-2 span', { y: 0, duration: 1.2, ease: 'power4.out' }, "-=0.8")
+          .to('.hero-cta', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, "-=0.5")
+          .to('.hero-image', { scale: 1, duration: 2.5, ease: 'power2.out' }, 0);
+
+    // Grid Animation
+    gsap.utils.toArray('.property-card').forEach((card, i) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: card,
+                start: 'top bottom-=100',
+                toggleActions: 'play none none none'
+            },
+            y: 100,
+            opacity: 0,
+            duration: 1.2,
+            ease: 'power3.out',
+            delay: i % 2 * 0.2
+        });
+    });
+
+    // Marquee Logic
+    const marquee = document.querySelector('.marquee-inner');
+    const items = marquee.innerHTML;
+    marquee.innerHTML += items;
+
+    gsap.fromTo('.marquee-inner', 
+        { xPercent: 0 },
+        {
+            xPercent: -50,
+            repeat: -1,
+            duration: 60,
+            ease: "none"
+        }
+    );
+
+    // Property Menu Overlay Logic
+    const collectionsTrigger = document.getElementById('collections-trigger');
+    const menuTrigger = document.getElementById('menu-trigger');
+    const closePropertyMenu = document.getElementById('close-property-menu');
+    const propertyOverlay = document.getElementById('property-menu-overlay');
+    const island = document.getElementById('dynamic-island');
+
+    function openMenu() {
+        propertyOverlay.classList.remove('hidden');
+        propertyOverlay.classList.add('flex');
+        
+        // Lock scroll
+        document.body.style.overflow = 'hidden';
+        
+        const tl = gsap.timeline();
+        tl.to(propertyOverlay, { 
+            opacity: 1, 
+            duration: 0.8, 
+            ease: 'power3.out',
+            pointerEvents: 'auto'
+        })
+        .to('.menu-item', { 
+            opacity: 1, 
+            duration: 0.8, 
+            stagger: 0.1 
+        }, "-=0.4")
+        .to('.property-nav-item', { 
+            y: 0, 
+            opacity: 1, 
+            filter: 'blur(0px)',
+            duration: 1.2, 
+            stagger: 0.15,
+            ease: 'expo.out'
+        }, "-=0.6");
+        
+        gsap.to(island, { opacity: 0, scale: 0.95, duration: 0.4 });
+    }
+
+    function closeMenu() {
+        const tl = gsap.timeline({
+            onComplete: () => {
+                propertyOverlay.classList.add('hidden');
+                propertyOverlay.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        tl.to('.property-nav-item', { 
+            y: 50, 
+            opacity: 0, 
+            filter: 'blur(10px)',
+            duration: 0.6, 
+            stagger: 0.05,
+            ease: 'power3.in'
+        })
+        .to(propertyOverlay, { 
+            opacity: 0, 
+            duration: 0.6, 
+            ease: 'power3.in',
+            pointerEvents: 'none'
+        }, "-=0.3");
+
+        gsap.to(island, { opacity: 1, scale: 1, duration: 0.6, delay: 0.2 });
+    }
+
+    collectionsTrigger.addEventListener('click', (e) => { e.preventDefault(); openMenu(); });
+    menuTrigger.addEventListener('click', openMenu);
+    closePropertyMenu.addEventListener('click', closeMenu);
+
+    // Floating Effect for Hero
+    gsap.to('.hero-image', {
+        yPercent: 5,
+        ease: "none",
+        scrollTrigger: {
+            trigger: ".hero-image",
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+        }
+    });
+</script>
+</body></html>
